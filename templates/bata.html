@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prooyek | Kalkulator batu bata</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css" />
+
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename = 'apple-touch-icon.png')}}">
+  <link rel="icon" type="image/png" sizes="32x32" href="{{url_for('static', filename = 'favicon-32x32.png')}}">
+  <link rel="icon" type="image/png" sizes="16x16" href="{{url_for('static', filename = 'favicon-16x16.png')}}">
+  <link rel="manifest" href="{{url_for('static', filename = 'site.webmanifest')}}">
+  <link rel="mask-icon" href="{{url_for('static', filename = 'safari-pinned-tab.svg')}}" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='/css/style.css') }}">
+
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+</head>
+
+<body>
+  <div class="main">
+    <a href="/">
+      <img class="center_image" src="{{url_for('static', filename='logo.svg')}}" alt="logo" width="200px" height="auto">
+    </a>
+    <!-- form -->
+    <div class="container" style="padding-top: 3rem;">
+      <div class="container-calc">
+        <h4 style="text-align: center;">Kalkulator Batu Bata</h4>
+
+        <form action="/bata" method="POST">
+          <div class="form_card">
+            <label for="Panjang Bata">Panjang Bata (mm)</label>
+            <input type="number" min="1" placeholder="Panjang Bata (mm)" class="u-full-width" name="panjang" required />
+
+            <label for="Tinggi Bata">Tinggi Bata (mm)</label>
+            <input type="number" min="1" placeholder="Tinggi Bata (mm)" class="u-full-width" name="tinggi" required />
+
+            <label for="Lebar Bata">Lebar Bata (mm)</label>
+            <input type="number" min="1" placeholder="Lebar Bata (mm)" class="u-full-width" name="lebar" required />
+
+            <label for="Ketebalan Sambungan Mortar">Ketebalan Sambungan Mortar (mm)</label>
+            <input type="number" min="1" placeholder="Ketebalan Sambungan Mortar (mm)" class="u-full-width"
+              name="tebalMortar" required />
+          </div>
+          <br>
+
+          <div class="form_card">
+            <label for="Panjang Dinding">Panjang Dinding (m)</label>
+            <input type="number" min="1" placeholder="Panjang Dinding (m)" class="u-full-width" name="panjangDinding"
+              required />
+
+            <label for="Tinggi Dinding">Tinggi Dinding (m)</label>
+            <input type="number" min="1" placeholder="Tinggi Dinding (m)" class="u-full-width" name="tinggiDinding"
+              required />
+          </div>
+          <br>
+
+          <div class="form_card">
+            <label for="Harga Satuan Batu Bata">Harga Satuan Batu Bata (Rp)</label>
+            <input data-type="currency" type="number" min="1" placeholder="Harga Satuan (Rp)" class="u-full-width"
+              name="harga" required />
+          </div>
+          <br />
+          <div class="form_card">
+            <input class="tombol" type="submit" value="Hitung" id="calc_btn" />
+          </div>
+          <br>
+          <div class="form_card">
+            <label for="Pemborosan 10%">Batu Bata Terbuang 10%</label>
+            <div class="alert">
+              {{ wastage }} Buah
+            </div>
+
+            <label for="Total Batu bata yang dibutuhkan">Batu bata yang dibutuhkan</label>
+            <div class="alert">
+              {{ sum }} Buah
+            </div>
+
+            <label for="Total Harga">Total Harga</label>
+            <div class="summary">
+              {{ price }}
+            </div>
+          </div>
+
+        </form>
+      </div>
+      <div class="container-main">
+        <div>
+          <h4>Menghitung kebutuhan batu bata</h4>
+          <p>Kita dapat menghitung berapa banyak batu bata yang Kita butuhkan menggunakan persamaan sederhana berikut:
+          </p>
+          <h5>
+            batu bata yang dibutuhkan \( = \frac{(L \times H)}{(l + t) \times (h + t)} \)
+          </h5>
+          <p>
+            di mana:
+          </p>
+          <ul>
+            <li>\(L\) - Panjang dinding;</li>
+            <li>\(H\) - Ketinggian dinding;</li>
+            <li>\(l\) - Panjang batu bata;</li>
+            <li>\(t\) - Ketebalan sambungan mortar</li>
+            <li>\(h\) - Tinggi batu bata.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

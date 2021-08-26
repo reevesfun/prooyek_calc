@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prooyek | Kalkulator pasir</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css" />
+
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename = 'apple-touch-icon.png')}}">
+  <link rel="icon" type="image/png" sizes="32x32" href="{{url_for('static', filename = 'favicon-32x32.png')}}">
+  <link rel="icon" type="image/png" sizes="16x16" href="{{url_for('static', filename = 'favicon-16x16.png')}}">
+  <link rel="manifest" href="{{url_for('static', filename = 'site.webmanifest')}}">
+  <link rel="mask-icon" href="{{url_for('static', filename = 'safari-pinned-tab.svg')}}" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='/css/style.css') }}">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+</head>
+
+<body>
+  <div class="main">
+    <a href="/">
+      <img class="center_image" src="{{url_for('static', filename='logo.svg')}}" alt="logo" width="200px" height="auto">
+    </a>
+    <!-- form -->
+    <div class="container" style="padding-top: 3rem;">
+      <div class="container-calc">
+        <h4 style="text-align: center;">Kalkulator Pasir</h4>
+
+        <form action="/pasir" method="POST">
+          <div class="form_card">
+            <label for="Panjang Galian">Panjang Penggalian(m)</label>
+            <input type="number" min="1" placeholder="Panjang galian(m)" class="u-full-width" name="panjang" required />
+
+            <label for="Lebar Galian">Lebar Penggalian (m)</label>
+            <input type="number" min="1" placeholder="Lebar galian (m)" class="u-full-width" name="lebar" required />
+
+            <label for="Dalam Galian">Kedalaman Penggalian (cm)</label>
+            <input type="number" step="0.01" placeholder="Kedalaman galian (cm)" class="u-full-width" name="dalam"
+              required />
+
+            <label for="Bobot Pasir">Bobot Isi Pasir (kg/m&sup3;)</label>
+            <input type="number" min="1" placeholder="1400 kg/m&sup3;" class="u-full-width" name="bobot" required />
+
+            <label for="Harga Pasir per kg">Harga Pasir per kg (Rp)</label>
+            <input data-type="currency" type="number" min="1" placeholder="Harga pasir per kg (Rp)" class="u-full-width"
+              name="harga" required />
+
+            <input class="tombol" type="submit" value="Hitung" id="calc_btn" />
+          </div>
+          <br />
+
+          <div class="form_card">
+            <label for="Luas Galian">Luas Galian (m&sup2;)</label>
+            <div class="alert">
+              {{ area }}
+            </div>
+
+            <label for="Volume Pasir">Volume Pasir yang Dibutuhkan</label>
+            <div class="alert">
+              {{ volume }}
+            </div>
+
+            <label for="Berat Pasir">Berat Pasir</label>
+            <div class="alert">
+              {{ weight }}
+            </div>
+
+            <label for="Total Harga">Total Harga</label>
+            <div class="summary">
+              {{ price }}
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="container-main">
+        <div>
+          <h4>Menghitung kebutuhan pasir</h4>
+          <p>Langkah pertama adalah kita tentukan dahulu volume pasir yang dibutuhkan yang juga sama dengan volume
+            penggalian, dan Anda dapat melakukannya dengan metode berikut:
+          </p>
+          <ul>
+            <li>Tentukan panjang (\(L\)) dan lebar (\(b\)) galian balok. Sebagai contoh, kita dapat mengasumsikan sebuah
+              galian dengan panjang \(L = 10 m\) dan lebar \(b = 3 m\).</li>
+            <li>Hitung luas (\(A\)) galian dengan mengalikan panjang dengan lebar. Dalam kasus kami, \(A = 10 \times 3 =
+              30 m^2\). Anda juga dapat mengetikkan area penggalian langsung ke kalkulator kami jika Anda memilih
+              penggalian dengan bentuk yang lebih \(ciamik\).</li>
+            <li>Tentukan kedalaman (\(d\)) galian. Misalkan \(d = 0,5 m\).</li>
+            <li>Kalikan luas dengan kedalaman penggalian untuk mendapatkan volumenya: \(30 \times 0,5 = 15 m^3\).</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

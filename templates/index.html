@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename = 'apple-touch-icon.png')}}">
+  <link rel="icon" type="image/png" sizes="32x32" href="{{url_for('static', filename = 'favicon-32x32.png')}}">
+  <link rel="icon" type="image/png" sizes="16x16" href="{{url_for('static', filename = 'favicon-16x16.png')}}">
+  <link rel="manifest" href="{{url_for('static', filename = 'site.webmanifest')}}">
+  <link rel="mask-icon" href="{{url_for('static', filename = 'safari-pinned-tab.svg')}}" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='/css/style.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css" />
+
+  <title>Prooyek | Solusi proyek konstruksi Anda</title>
+</head>
+
+<body>
+  <div class="main">
+      <a href="/">
+          <img class="center_image" src="{{url_for('static', filename='logo.svg')}}" alt="logo" width="200px" height="auto">
+      </a>
+      <ul class="cards">
+          <li class="cards_item">
+              <a style="text-decoration: none;" href="{{ url_for('bata.kebutuhan_bata') }}" class="card">
+                  <div class="card_content">
+                      <div class="card_title">
+                          <img src="{{url_for('static', filename='bata.png')}}">
+                          <div>
+                              <h3>Bata</h3>
+                          </div>
+                      </div>
+                      <br />
+                      <h4>Kalkulator Bata</h4>
+                      <p>Mari hitung kebutuhan batu bata Anda.</p>
+                      <span class="link-text">
+                          Klik Aja
+                          <svg width="25" height="16" viewBox="0 0 25 16" fill="none"
+                              xmlns="http://www.w3.org/2000/svg">
+                              <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M17.8631 0.929124L24.2271 7.29308C24.6176 7.68361 24.6176 8.31677 24.2271 8.7073L17.8631 15.0713C17.4726 15.4618 16.8394 15.4618 16.4489 15.0713C16.0584 14.6807 16.0584 14.0476 16.4489 13.657L21.1058 9.00019H0.47998V7.00019H21.1058L16.4489 2.34334C16.0584 1.95281 16.0584 1.31965 16.4489 0.929124C16.8394 0.538599 17.4726 0.538599 17.8631 0.929124Z"
+                                  fill="#F3C814" />
+                          </svg>
+                      </span>
+                  </div>
+              </a>
+          </li>
+          <li class="cards_item">
+              <a style="text-decoration: none;" href="{{ url_for('pasir.kebutuhan_pasir') }}" class="card">
+                  <div class="card_content">
+                      <div class="card_title">
+                          <img src="{{url_for('static', filename='pasir.png')}}">
+                          <div>
+                              <h3>Pasir</h3>
+                          </div>
+                      </div>
+                      <br />
+                      <h4>Kalkulator Pasir</h4>
+                      <p>Hitung kebutuhan pasir proyek Anda</p>
+                      <span class="link-text">
+                          Klik Aja
+                          <svg width="25" height="16" viewBox="0 0 25 16" fill="none"
+                              xmlns="http://www.w3.org/2000/svg">
+                              <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M17.8631 0.929124L24.2271 7.29308C24.6176 7.68361 24.6176 8.31677 24.2271 8.7073L17.8631 15.0713C17.4726 15.4618 16.8394 15.4618 16.4489 15.0713C16.0584 14.6807 16.0584 14.0476 16.4489 13.657L21.1058 9.00019H0.47998V7.00019H21.1058L16.4489 2.34334C16.0584 1.95281 16.0584 1.31965 16.4489 0.929124C16.8394 0.538599 17.4726 0.538599 17.8631 0.929124Z"
+                                  fill="#F3C814" />
+                          </svg>
+                      </span>
+                  </div>
+              </a>
+          </li>
+          <li class="cards_item">
+              <a style="text-decoration: none;" href="{{ url_for('semen.kebutuhan_semen') }}" class="card">
+                  <div class="card_content">
+                      <div class="card_title">
+                          <img src="{{url_for('static', filename='semen.png')}}">
+                          <div>
+                              <h3>Semen</h3>
+                          </div>
+                      </div>
+                      <br />
+                      <h4>Kalkulator Semen</h4>
+                      <p>Jumlah sak semen yang perlu Anda beli.</p>
+                      <span class="link-text">
+                          Klik Aja
+                          <svg width="25" height="16" viewBox="0 0 25 16" fill="none"
+                              xmlns="http://www.w3.org/2000/svg">
+                              <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M17.8631 0.929124L24.2271 7.29308C24.6176 7.68361 24.6176 8.31677 24.2271 8.7073L17.8631 15.0713C17.4726 15.4618 16.8394 15.4618 16.4489 15.0713C16.0584 14.6807 16.0584 14.0476 16.4489 13.657L21.1058 9.00019H0.47998V7.00019H21.1058L16.4489 2.34334C16.0584 1.95281 16.0584 1.31965 16.4489 0.929124C16.8394 0.538599 17.4726 0.538599 17.8631 0.929124Z"
+                                  fill="#F3C814" />
+                          </svg>
+                      </span>
+                  </div>
+              </a>
+          </li>
+          <li class="cards_item">
+            <a style="text-decoration: none;" href="{{ url_for('platBaja.tebal_baja') }}" class="card">
+                <div class="card_content">
+                    <div class="card_title">
+                        <img src="{{url_for('static', filename='plat.png')}}">
+                        <div>
+                            <h3>Plat Baja</h3>
+                        </div>
+                    </div>
+                    <br />
+                    <h4>Kalkulator Berat Plat Baja</h4>
+                    <p>Hitung berat plat baja yang Anda beli.</p>
+                    <span class="link-text">
+                        Klik Aja
+                        <svg width="25" height="16" viewBox="0 0 25 16" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M17.8631 0.929124L24.2271 7.29308C24.6176 7.68361 24.6176 8.31677 24.2271 8.7073L17.8631 15.0713C17.4726 15.4618 16.8394 15.4618 16.4489 15.0713C16.0584 14.6807 16.0584 14.0476 16.4489 13.657L21.1058 9.00019H0.47998V7.00019H21.1058L16.4489 2.34334C16.0584 1.95281 16.0584 1.31965 16.4489 0.929124C16.8394 0.538599 17.4726 0.538599 17.8631 0.929124Z"
+                                fill="#F3C814" />
+                        </svg>
+                    </span>
+                </div>
+            </a>
+        </li>
+      </ul>
+  </div>
+</body>
+
+
+</html>

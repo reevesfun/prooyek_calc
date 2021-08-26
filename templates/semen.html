@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prooyek | Kalkulator Semen</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css" />
+
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename = 'apple-touch-icon.png')}}">
+  <link rel="icon" type="image/png" sizes="32x32" href="{{url_for('static', filename = 'favicon-32x32.png')}}">
+  <link rel="icon" type="image/png" sizes="16x16" href="{{url_for('static', filename = 'favicon-16x16.png')}}">
+  <link rel="manifest" href="{{url_for('static', filename = 'site.webmanifest')}}">
+  <link rel="mask-icon" href="{{url_for('static', filename = 'safari-pinned-tab.svg')}}" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='/css/style.css') }}">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <script type="text/javascript">
+    function setForm(value) {
+
+      if (value == 'mortar') {
+        document.getElementById('mortar').style = 'display:block;';
+        document.getElementById('campuran').selectedIndex ='0';
+        document.getElementById('beton').style = 'display:none;';
+      }
+      else {
+        document.getElementById('beton').style = 'display:block;';
+        document.getElementById('campuran').selectedIndex = '4';
+        document.getElementById('mortar').style = 'display:none;';
+      }
+
+    }
+  </script>
+
+</head>
+
+<body>
+  <div class="main">
+    <a href="/">
+      <img class="center_image" src="{{url_for('static', filename='logo.svg')}}" alt="logo" width="200px" height="auto">
+    </a>
+    <!-- form -->
+    <div class="container" style="padding-top: 3rem;">
+      <div class="container-calc">
+        <h4 style="text-align: center;">Kalkulator Semen</h4>
+        <div>
+          <form action="/semen" method="POST">
+            <div class="form_card">
+              <label>Pilih campuran</label>
+              <select name="select" id="select1" onchange="setForm(this.value)">
+                <option value="mortar">Mortar / Perekat</option>
+                <option value="beton">Beton / Cor-coran</option>
+              </select>
+            </div>
+            <br>
+
+            <div class="form_card">
+              <label for="volume basah">volume campuran basah</label>
+              <input type="number" step="any" min="0" placeholder="volume basah (m&sup3;)" class="u-full-width"
+                name="volume_basah" required />
+
+              <label for="volume kering">volume campuran kering</label>
+              <div class="alert">
+                {{ volumeKering }} m&sup3;
+              </div>
+
+              <label for="Pemborosan 10%">Buangan 10%</label>
+              <div class="alert">
+                {{ wastage }} m&sup3;
+              </div>
+
+              <label for="total volume">Total volume campuran</label>
+              <div class="alert">
+                {{ totalVolume }} m&sup3;
+              </div>
+            </div>
+            <br>
+            <div class="form_card" id='mortar'>
+              <label for="mix">Rasio campuran mortar:</label>
+              <select name="campuran" id='campuran'>
+                <option value="1:3">1:3 (Untuk reparasi)</option>
+                <option value="1:4">1:4 (Untuk plaster eksterior)</option>
+                <option value="1:5">1:5 (Untuk bata dan plaster interior)</option>
+                <option value="1:6">1:6 (Untuk plaster interior)</option>
+              </select>
+            </div>
+
+            <div class="form_card" id='beton' style="display: none;">
+              <label for="mix">Rasio campuran beton:</label>
+
+              <select name="campuran" id ='campuran'>
+                <option value="1:1:2">1:1:2 (25.0 MPa atau 3625 psi)</option>
+                <option value="1:1.5:3">1:1.5:3 (20.0 MPa atau 2900 psi)</option>
+                <option value="1:2:4">1:2:4 (15.0 MPa atau 2175 psi)</option>
+                <option value="1:3:6">1:3:6 (10.0 MPa atau 1450 psi)</option>
+                <option value="1:4:8">1:4:8 (7.5 MPa atau 1085 psi)</option>
+                <option value="1:5:10">1:5:10 (5.0 MPa atau 725 psi)</option>
+              </select>
+            </div>
+            <br>
+            <div class="form_card">
+              <h4>Semen yang dibutuhkan</h4>
+              <label for="volume semen">Volume semen</label>
+              <div class="alert">
+                {{ volumeSemen }} m&sup3;
+              </div>
+
+              <label for="berat semen">Berat semen</label>
+              <div class="alert">
+                {{ berat }} kg
+              </div>
+
+              <label for="isi semen">Ukuran berat 1 sak semen</label>
+              <input type="number" min="0" placeholder="50 kg" class="u-full-width" name="isi_semen"/>
+
+              <label for="jumlah sak semen">Sak semen yang dibutuhkan</label>
+              <div class="alert">
+                {{ sak }} sak
+              </div>
+            </div>
+            <br>
+            <div class="form_card">
+              <h4>Material lain</h4>
+              <label for="volume pasir">Volume pasir</label>
+              <div class="alert">
+                {{ volumePasir }} m&sup3;
+              </div>
+
+              <div id="volume_kerikil">
+                <label for="volume kerikil">volume kerikil</label>
+                <div class="alert">
+                  {{ volumeKerikil }} m&sup3;
+                </div>
+              </div>
+            </div>
+            <br>
+            <div class="form_card">
+              <h4>Harga semen</h4>
+              <label for="harga semen">Harga 1 sak semen</label>
+              <input type="currency" min="1" placeholder="Harga 1 sak semen (Rp)" class="u-full-width"
+                name="harga_semen" required />
+
+              <label for="Total Harga">Total harga semen yang dibutuhkan</label>
+              <div class="summary">
+                {{ price }}
+              </div>
+              <br>
+              <input type="submit" value="Hitung" id="calc_btn" />
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="container-main">
+        <div>
+          <h4>Menghitung kebutuhan Semen</h4>
+          <p>
+            Karena semen biasanya digunakan bersama dengan bahan konstruksi lain seperti pasir dan kerikil, kami
+            menghitung volumenya menggunakan rasio campuran. Dengan rasio campuran, kita dapat mengetahui berapa banyak
+            komponen yang dibutuhkan campuran beton atau campuran mortar dalam hal bagian.
+
+            Rasio campuran tidak hanya membantu menentukan jumlah semen, pasir, dan kerikil yang dibutuhkan, tetapi juga
+            memberi tahu kita tentang kekuatan dan daya tahan produk akhir. Semakin banyak semen yang kita miliki dalam
+            campuran, semakin kuat produknya. Berikut adalah beberapa rasio campuran beton yang umum dan kuat tekan yang
+            sesuai serta kegunaannya dalam konstruksi:
+          </p>
+          <table>
+            <tr>
+              <th>Rasio Campuran Beton (semen:pasir:kerikil)</th>
+              <th>Kekuatan Tekanan</th>
+              <th>Penggunaan Umum</th>
+            </tr>
+            <tr>
+              <th>1 : 5 : 10</th>
+              <th>5.0 MPa atau 725 psi</th>
+              <th>Pengerjaan beton masal</th>
+            </tr>
+            <tr>
+              <th>1 : 4 : 8</th>
+              <th>7.5 MPa atau 1085 psi</th>
+              <th rowspan="2">Pengerjaan beton masal untuk pondasi, tapak, dan tembok yang berat</th>
+            </tr>
+            <tr>
+              <th>1:3:6</th>
+              <th>10.0 MPa or 1450 psi</th>
+            </tr>
+            <tr>
+              <th>1 : 2 : 4</th>
+              <th>15.0 MPa or 2175 psi</th>
+              <th>Kolom beton bertulang umum,
+                balok, dan pelat</th>
+            </tr>
+            <tr>
+              <th>1 : 1.5 : 3</th>
+              <th>20.0 MPa or 2900 psi</th>
+              <th>Pekerjaan beton pracetak dan beton padat,
+                struktur penahan air, dan tiang pancang</th>
+            </tr>
+            <tr>
+              <th>1 : 1 : 2</th>
+              <th>25.0 MPa or 3625 psi</th>
+              <th>Kolom beton bertulang dengan beban berat dan balok bentang panjang</th>
+            </tr>
+          </table>
+          <p>
+            Volume basah beton adalah apa yang biasanya kita dapatkan ketika mendapatkan volume di dalam bekisting
+            (kolom).
+            Namun, kita membutuhkan volume kering campuran beton untuk menentukan berapa banyak semen, pasir, dan
+            kerikil yang kita butuhkan. Kita dapat memperkirakan volume kering campuran beton dengan mengalikan volume
+            basah dengan nilai yang digunakan para insinyur, yang berkisar antara \(1,52\) hingga \(1,57\).
+          </p>
+          <br>
+          <p>Misalnya kita ingin membuat balok beton \(5,0\ MPa (725\ psi)\ 20\ cm \times 20\ cm \times 20\ cm\)
+            menggunakan cetakan baja.
+            Dengan mengalikan dimensi cetakan baja balok beton, kita mendapatkan volume basah beton yang dibutuhkan:
+          </p>
+          <br>
+          <p>\(Volume_{basah} = 20\ cm \times 20\ cm \times 20\ cm = 0,2\ m \times 0,2\ m \times 0,2\ m = 0,008\ m^3\)
+          </p>
+
+          <p>
+            Katakanlah kita ingin menggunakan rasio volume kering terhadap volume basah \(1,54 : 1\). Kami kemudian
+            dapat
+            menemukan volume kering dengan mengalikan volume basah yang kami hitung dengan \(1,54\), seperti yang
+            ditunjukkan
+            di bawah ini:
+          </p>
+          <p>
+            \(volume_{kering} = volume_{basah} \times 1,54\)
+
+            \(volume_{kering} = 0,008 \ m^3 \times 1,54 = 0,01232 \ m^3\)
+          </p>
+          <p>
+            Dari tabel di bagian sebelumnya dari teks ini, kita membutuhkan rasio campuran \(1 : 5 : 10\) untuk membuat
+            balok
+            beton \(5,0\ MPa\ (725\ psi)\). Dengan menjumlahkan bagian-bagian rasio bersama-sama, kita memperoleh total
+            bagian
+            menjadi \(1 + 5 + 10 = 16\). Di antara \(16\) bagian ini, semen adalah \(1\) bagian, pasir \(\)5 bagian, dan
+            kerikil
+            \(10\) bagian sisanya.
+          </p>
+          <p>
+            Untuk mendapatkan volume masing-masing komponen, kita dapat mengalikan berapa banyak bagian yang dibuat oleh
+            masing-masing komponen dengan total bagian campuran kering:
+          </p>
+          <p>
+            \(volume_{komponen} = volume_{kering} \times \frac{bagian dari total}{jumlah total bagian}\)
+          </p>
+          <p>
+            yang untuk setiap komponen:
+          </p>
+          <ul style="list-style-type:none;">
+            <li>\(volume_{semen} = 0,01232 \ m3 \times \frac{1}{16} = 0,00077 \ m^3\)</li>
+
+            <li>\(volume_{pasir} = 0,01232\ m3 \times \frac{5}{16} = 0,00385\ m^3\)</li>
+
+            <li>\(volume_{kerikil} = 0,01232\ m3 \times \frac{10}{16} = 0,00770\ m^3\)</li>
+          </ul>
+          <p>
+            Dari perhitungan kita di atas, sekarang kita dapat mengatakan bahwa untuk membuat balok beton kecil
+            berukuran \(5,0\ MPa\) berukuran \(20\ cm^3\), kita membutuhkan \(0,00077\ m^3\) semen, \(0,00385\ m^3\)
+            pasir, dan \(0,00770\ m^3\)
+            kerikil.
+
+            Harap dicatat bahwa menghitung semen dalam campuran mortar mengikuti prosedur yang sama seperti di atas.
+            Satu-satunya perbedaan adalah bahwa tidak akan ada kerikil dalam campuran.
+            More about this source text
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
